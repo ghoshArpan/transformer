@@ -10,7 +10,7 @@
         padding: 4px 4px !important;
     } */
 
-    
+
     .p {
         font-size: 10px !important;
     }
@@ -342,7 +342,7 @@
 </div>
 <div class="content-header">
     <div class="container-fluid">
-       
+
         <div class="row">
             <div class="col-sm-4">{!! Form::button('<i class="fa fa-desktop "></i>&nbsp; Digital Register List<b></b>', [
                 'class' => 'btn btn-primary',
@@ -374,15 +374,15 @@
                         style="padding:7px">&nbsp;Status Change &nbsp;</button>
                 </a>
             </div>
-                
-                <div class="col-sm-2">
-                    <div class="float-right">
-                        <a href="{{ route('transformer') }}">
-                            <button type="button" class="btn btn-primary" id="add_btn"> &nbsp;Add &nbsp;</button>
-                        </a>
-                    </div>
+
+            <div class="col-sm-2">
+                <div class="float-right">
+                    <a href="{{ route('transformer') }}">
+                        <button type="button" class="btn btn-primary" id="add_btn"> &nbsp;Add &nbsp;</button>
+                    </a>
                 </div>
             </div>
+        </div>
 
 
         <!-- /.row -->
@@ -690,7 +690,7 @@
                                 <label for="name" class="form-label">TT:</label>
                             </div>
                             <div class="col-md-4">
-                                <input type="text" id="bill_tt" name="bill_tt" value="" readonly  class="form-control"
+                                <input type="text" id="bill_tt" name="bill_tt" value="" readonly class="form-control"
                                     autocomplete="off" style="border-radius: 0.65rem; margin:3px;">
                                 @error('bill_tt')
                                 <div class="text-danger">{{ $message }}</div>
@@ -801,11 +801,11 @@
                                 </th>
                                 <th width="5%">Tag</th>
                                 <th width="10%">Office</th>
-                                <th width="30%">Work</th>
+                                <th width="39%">Work</th>
                                 <!-- <th width="60%">Transformer Details</th> -->
                                 <!-- <th width="5%">Costing(Rs.)</th> -->
                                 <th width="9%">PO</th>
-                                <th width="9%">Invoice</th>
+                                <!-- <th width="9%">Invoice</th> -->
                                 <th width="10%">Amount(Rs.)</th>
                                 <th width="9%">Status</th>
                                 <th width="18%">Action</th>
@@ -827,8 +827,8 @@
                                     @endphp
                                     {{ $transformar->po_no }}
                                 </td>
-                                <td>{{ $transformar->invoice }}</td>
-                                <!-- <td>
+                                <!--<td>{{ $transformar->invoice }}</td>
+                                 <td>
                                     @php
                                     $TransformarData =
                                     App\Models\SubTransformer::fetch_tag_wise_trasnformer($transformar->code);
@@ -895,7 +895,7 @@
                                             dataId="{{$transformar->code}}" po_no="{{$transformar->po_no}}"
                                             memo_no="{{$transformar->memo_no}}" po_value="{{$transformar->po_value}}"
                                             memo_date="{{$transformar->memo_date}}"
-                                            
+
                                             invoice="{{$transformar->invoice}}" submit_no="{{$transformar->submit_no}}"
                                             bill_submit_date="{{$transformar->bill_submit_date}}" paid_date="{{$transformar->paid_date}}"
                                             bill_tt="{{$transformar->bill_tt}}"
@@ -956,7 +956,7 @@
 
 @section('script')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         function calculateTT() {
             var submitDate = new Date($('#bill_submit_date').val());
             var paidDate = new Date($('#paid_date').val());
@@ -972,7 +972,7 @@
                     var remainingDays = dayDiff % 30;
 
                     var result = months + ' Month' + (months > 1 ? 's' : '');
-                    
+
 
                     $('#bill_tt').val(result);
                 }
@@ -980,7 +980,7 @@
                 $('#bill_tt').val('');
             }
         }
-      
+
         $('#bill_submit_date, #paid_date').on('change', calculateTT);
     });
 </script>

@@ -48,7 +48,7 @@ class Transformer extends Model
         $trans = Transformer::find($transformerCode);
         $trans->po_no = request()->po_number;
         $trans->memo_no = request()->memo_no;
-        $trans->memo_date = date('Y-m-d',strtotime(request()->memo_date));
+        $trans->memo_date = date('Y-m-d', strtotime(request()->memo_date));
         $trans->po_value = request()->po_value;
         $trans->invoice =  request()->invoice;
         $trans->submit_no =  request()->submit_no;

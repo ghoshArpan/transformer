@@ -2,29 +2,29 @@
 @section('title', 'Attendance Sheet')
 @section('content')
 <style>
-.dataTables_info,
-.dataTables_length,
-.dataTables_filter,
-.dataTables_paginate {
-    display: none
-}
+    .dataTables_info,
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_paginate {
+        display: none
+    }
 
-.extra-input {
-    pointer-events: auto;
-    z-index: 1;
-}
+    .extra-input {
+        pointer-events: auto;
+        z-index: 1;
+    }
 
-.attendance-input {
-    width: 50px !important;
-    /* Adjust this value as needed */
-    max-width: 100%;
-    padding: 0 5px;
-    text-align: center;
-}
+    .attendance-input {
+        width: 50px !important;
+        /* Adjust this value as needed */
+        max-width: 100%;
+        padding: 0 5px;
+        text-align: center;
+    }
 
-th {
-    font-size: 10px
-}
+    th {
+        font-size: 10px
+    }
 </style>
 
 <div class="content-header">
@@ -116,7 +116,8 @@ th {
                                             <td class="total-days">{{ number_format($employeeData['total_days'], 2) }}
                                             </td>
                                             <td class="total-payable">
-                                                {{ number_format($employeeData['total_payable'], 2) }}</td>
+                                                {{ number_format($employeeData['total_payable'], 2) }}
+                                            </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -134,29 +135,29 @@ th {
 @endsection
 @section('script')
 <script>
-function calculateTotals(input) {
-    const row = input.closest('tr');
-    const dailyWage = parseFloat(row.dataset.dailyWage);
-    const inputs = row.querySelectorAll('.attendance-input');
-    const totalDaysCell = row.querySelector('.total-days');
-    const totalPayableCell = row.querySelector('.total-payable');
+    function calculateTotals(input) {
+        const row = input.closest('tr');
+        const dailyWage = parseFloat(row.dataset.dailyWage);
+        const inputs = row.querySelectorAll('.attendance-input');
+        const totalDaysCell = row.querySelector('.total-days');
+        const totalPayableCell = row.querySelector('.total-payable');
 
-    let totalDays = 0;
+        let totalDays = 0;
 
-    inputs.forEach(input => {
-        const days = parseFloat(input.value) || 0;
-        totalDays += days;
+        inputs.forEach(input => {
+            const days = parseFloat(input.value) || 0;
+            totalDays += days;
+        });
+
+        const totalPayable = totalDays * dailyWage;
+
+        totalDaysCell.textContent = totalDays.toFixed(2);
+        totalPayableCell.textContent = totalPayable.toFixed(2);
+    }
+    $(document).ready(function() {
+        $('.attendance-input').each(function() {
+            calculateTotals(this);
+        });
     });
-
-    const totalPayable = totalDays * dailyWage;
-
-    totalDaysCell.textContent = totalDays.toFixed(2);
-    totalPayableCell.textContent = totalPayable.toFixed(2);
-}
-$(document).ready(function() {
-    $('.attendance-input').each(function() {
-        calculateTotals(this);
-    });
-});
 </script>
 @endsection

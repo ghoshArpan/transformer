@@ -40,336 +40,341 @@
 
     <style>
         td {
-  white-space: normal !important;  /* Allows text to wrap */
-  word-break: break-word !important;  /* Breaks long words */
-  overflow-wrap: break-word !important;
-  vertical-align: top !important;  /* Aligns content to the top of the cell */
-  padding: 8px !important;  /* Adds some spacing inside the cell */
-  max-width: 200px !important;  /* Optional: Limits width to force wrapping */
-}
-
-    /* Full-page loader */
-    .loader-overlay {
-        display: none;
-        /* Hidden by default */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        /* Semi-transparent background */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-    }
-
-    .loader {
-        width: 50px;
-        height: 50px;
-        border: 5px solid white;
-        border-top: 5px solid transparent;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
+            white-space: normal !important;
+            /* Allows text to wrap */
+            word-break: break-word !important;
+            /* Breaks long words */
+            overflow-wrap: break-word !important;
+            vertical-align: top !important;
+            /* Aligns content to the top of the cell */
+            padding: 8px !important;
+            /* Adds some spacing inside the cell */
+            max-width: 200px !important;
+            /* Optional: Limits width to force wrapping */
         }
 
-        100% {
-            transform: rotate(360deg);
+        /* Full-page loader */
+        .loader-overlay {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent background */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
         }
-    }
 
-    .form-horizontal .has-feedback .form-control-feedback {
-        top: 0;
-        right: 15px;
-    }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid white;
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
 
-    .has-error {
-        color: red;
-        border-color: red;
-    }
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
 
-    .has-error .form-control {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
 
-        border-color: red;
-    }
+        .form-horizontal .has-feedback .form-control-feedback {
+            top: 0;
+            right: 15px;
+        }
 
-    .has-success .form-control {
+        .has-error {
+            color: red;
+            border-color: red;
+        }
 
-        border-color: green;
-    }
+        .has-error .form-control {
 
-    #vehicle_user .inputGroupContainer .form-control-feedback,
-    #vehicle_user .selectContainer .form-control-feedback {
-        top: 0;
-        right: -15px;
-    }
+            border-color: red;
+        }
 
-    .has-error .form-control-feedback {
-        color: #a94442;
-    }
+        .has-success .form-control {
 
-    .form-control-feedback {
-        position: absolute;
-        /* top: 25px;
+            border-color: green;
+        }
+
+        #vehicle_user .inputGroupContainer .form-control-feedback,
+        #vehicle_user .selectContainer .form-control-feedback {
+            top: 0;
+            right: -15px;
+        }
+
+        .has-error .form-control-feedback {
+            color: #a94442;
+        }
+
+        .form-control-feedback {
+            position: absolute;
+            /* top: 25px;
             right: 0; */
-        z-index: 2;
-        display: block;
-        width: 34px;
-        height: 34px;
-        line-height: 34px;
-        text-align: center;
-        margin-left: 97%;
-        margin-top: -38px;
-    }
+            z-index: 2;
+            display: block;
+            width: 34px;
+            height: 34px;
+            line-height: 34px;
+            text-align: center;
+            margin-left: 97%;
+            margin-top: -38px;
+        }
 
-    .has-feedback .form-control-feedback {
-        top: 2px;
-        right: 15px;
-    }
+        .has-feedback .form-control-feedback {
+            top: 2px;
+            right: 15px;
+        }
 
-    .content-header {
-        margin-bottom: 19px;
-    }
+        .content-header {
+            margin-bottom: 19px;
+        }
 
-    .glyphicon {
-        position: relative;
-        top: 1px;
-        /* display: inline-block; */
-        font-family: 'Glyphicons Halflings';
-        font-style: normal;
-        font-weight: 400;
-        /* line-height: 1; */
-        -webkit-font-smoothing: antialiased;
-        /* -moz-osx-font-smoothing: grayscale; */
-    }
+        .glyphicon {
+            position: relative;
+            top: 1px;
+            /* display: inline-block; */
+            font-family: 'Glyphicons Halflings';
+            font-style: normal;
+            font-weight: 400;
+            /* line-height: 1; */
+            -webkit-font-smoothing: antialiased;
+            /* -moz-osx-font-smoothing: grayscale; */
+        }
 
-    /* .glyphicon-remove:before {
+        /* .glyphicon-remove:before {
             content: "\e014";
               } */
-    .required:after {
-        content: '*';
-        color: red;
-        font-weight: 700;
-        margin-left: 4px;
-    }
+        .required:after {
+            content: '*';
+            color: red;
+            font-weight: 700;
+            margin-left: 4px;
+        }
 
-    /* .form-control{
+        /* .form-control{
              border-radius: 10px !important;
               } */
 
 
-    /* ..... */
+        /* ..... */
 
-    .loader {
-        position: fixed;
-        z-index: 99999;
-        height: 2em;
-        width: 2em;
-        overflow: show;
-        margin: auto;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-    }
-
-    /* Transparent Overlay */
-    .loader:before {
-        content: '';
-        display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
-        background: -webkit-radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
-    }
-
-    /* :not(:required) hides these rules from IE9 and below */
-    .loader:not(:required) {
-        /* hide "loading..." text */
-        font: 0/0 a;
-        color: transparent;
-        text-shadow: none;
-        background-color: transparent;
-        border: 0;
-    }
-
-    .loader:not(:required):after {
-        content: '';
-        display: block;
-        font-size: 10px;
-        width: 1em;
-        height: 1em;
-        margin-top: -0.5em;
-        -webkit-animation: spinner 150ms infinite linear;
-        -moz-animation: spinner 150ms infinite linear;
-        -ms-animation: spinner 150ms infinite linear;
-        -o-animation: spinner 150ms infinite linear;
-        animation: spinner 150ms infinite linear;
-        border-radius: 0.5em;
-        -webkit-box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
-        box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
-    }
-
-    @-webkit-keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
+        .loader {
+            position: fixed;
+            z-index: 99999;
+            height: 2em;
+            width: 2em;
+            overflow: show;
+            margin: auto;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
         }
 
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-
-    @-moz-keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
+        /* Transparent Overlay */
+        .loader:before {
+            content: '';
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
+            background: -webkit-radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
         }
 
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
-        }
-    }
-
-    @-o-keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
+        /* :not(:required) hides these rules from IE9 and below */
+        .loader:not(:required) {
+            /* hide "loading..." text */
+            font: 0/0 a;
+            color: transparent;
+            text-shadow: none;
+            background-color: transparent;
+            border: 0;
         }
 
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
+        .loader:not(:required):after {
+            content: '';
+            display: block;
+            font-size: 10px;
+            width: 1em;
+            height: 1em;
+            margin-top: -0.5em;
+            -webkit-animation: spinner 150ms infinite linear;
+            -moz-animation: spinner 150ms infinite linear;
+            -ms-animation: spinner 150ms infinite linear;
+            -o-animation: spinner 150ms infinite linear;
+            animation: spinner 150ms infinite linear;
+            border-radius: 0.5em;
+            -webkit-box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+            box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
         }
-    }
 
-    @keyframes spinner {
-        0% {
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            transform: rotate(0deg);
+        @-webkit-keyframes spinner {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
         }
 
-        100% {
-            -webkit-transform: rotate(360deg);
-            -moz-transform: rotate(360deg);
-            -ms-transform: rotate(360deg);
-            -o-transform: rotate(360deg);
-            transform: rotate(360deg);
+        @-moz-keyframes spinner {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
         }
-    }
-    </style>
-     <style>
-        /* Ensure the table has enough space */
-       
+
+        @-o-keyframes spinner {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spinner {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -moz-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                -o-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -moz-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
     </style>
     <style>
-    .check-icon {
-        font-size: 20px;
-        color: green;
-    }
+        /* Ensure the table has enough space */
+    </style>
+    <style>
+        .check-icon {
+            font-size: 20px;
+            color: green;
+        }
 
-    .custom-checkbox {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        accent-color: green;
-    }
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            accent-color: green;
+        }
 
-    body {
-        background-color: #f8f9fa;
-    }
+        body {
+            background-color: #f8f9fa;
+        }
 
-    .container {
-        margin-top: 50px;
-    }
+        .container {
+            margin-top: 50px;
+        }
 
-    .card {
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-    table {
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-
+        table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
 
-.col-sm-12.alert-success{
-    max-width: 97% !important;
-    /* width: 90%; */
-    margin-left: 17px !important;
-}
-.thead tr th{
-    background-color: rgb(157, 178, 180);
-    color: black;  
-}
 
-        
- 
-    th {
-        background-color: rgb(2, 108, 122);
-        color: white;
-    }
 
-    .content-header {
-        padding: 3px .5rem !important;
-    }
+        .col-sm-12.alert-success {
+            max-width: 97% !important;
+            /* width: 90%; */
+            margin-left: 17px !important;
+        }
 
-    .add_button {
-        background-color: rgb(2, 108, 122);
-        color: white;
-    }
+        .thead tr th {
+            background-color: rgb(157, 178, 180);
+            color: black;
+        }
 
-    .btn-submit {
-        width: 100%;
-        border-radius: 20px;
-    }
 
-    .check-icon {
-        font-size: 20px;
-        border-radius: 20px;
 
-        color: green;
-    }
+        th {
+            background-color: rgb(2, 108, 122);
+            color: white;
+        }
 
-    button {
-        border-radius: 6px
-    }
+        .content-header {
+            padding: 3px .5rem !important;
+        }
+
+        .add_button {
+            background-color: rgb(2, 108, 122);
+            color: white;
+        }
+
+        .btn-submit {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .check-icon {
+            font-size: 20px;
+            border-radius: 20px;
+
+            color: green;
+        }
+
+        button {
+            border-radius: 6px
+        }
     </style>
 
 </head>
@@ -560,8 +565,8 @@
         <!-- /.control-sidebar -->
     </div>
     <div class="loader-overlay" id="loader">
-    <div class="loader"></div>
-</div>
+        <div class="loader"></div>
+    </div>
     <!-- ./wrapper -->
 
     <!-- jQuery UI 1.11.4 -->
@@ -571,7 +576,7 @@
         $(document).ready(function() {
             $("#loader").fadeOut();
         });
-    $.widget.bridge('uibutton', $.ui.button)
+        $.widget.bridge('uibutton', $.ui.button)
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('admin_js/bootstrap.bundle.min.js') }}"></script>
@@ -617,47 +622,47 @@
         integrity="sha512-lxQ4VnKKW7foGFV6L9zlSe+6QppP9B2t+tMMaV4s4iqAv4iHIyXED7O+fke1VeLNaRdoVkVt8Hw/jmZ+XocsXQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
 
-   <!-- DataTables CSS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css">
 
-<!-- jQuery (Required for DataTables) -->
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <!-- jQuery (Required for DataTables) -->
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 
-<!-- DataTables JS -->
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
-   
-   <script>
+
+    <script>
         new DataTable('#group_list', {
             scrollX: true,
-                
-});
-//     new DataTable('#group_list', {
-//         fixedColumns: {
-//         start: 1,
-//         end: 1
-//     },
-//     paging: false,
-//     scrollCollapse: true,
-//     scrollX: true,
-// });
-$(".table").dataTable();
 
-    // For DataTables >=1.10, use:
+        });
+        //     new DataTable('#group_list', {
+        //         fixedColumns: {
+        //         start: 1,
+        //         end: 1
+        //     },
+        //     paging: false,
+        //     scrollCollapse: true,
+        //     scrollX: true,
+        // });
+        $(".table").dataTable();
 
-    $('.table_inside').dataTable({
-        searching: false,
-        paging: false,
-        info: false
-    });
+        // For DataTables >=1.10, use:
 
-    function isNumberKey(evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57))
-            return false;
-        return true;
-    }
+        $('.table_inside').dataTable({
+            searching: false,
+            paging: false,
+            info: false
+        });
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            return true;
+        }
     </script>
 
     @yield('script')

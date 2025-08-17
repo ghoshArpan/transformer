@@ -79,13 +79,11 @@
             content: "\e014";
         9 } */
 </style>
-
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-4">
             <div class="col-sm-6">
-               
-            </div><!-- /.col -->
+            </div>
             <div class="col-sm-6">
                 <div class="float-right">
                     <a href="{{ route('rawMeterial_List') }}">
@@ -93,9 +91,9 @@
                         </button>
                     </a>
                 </div>
-            </div><!-- /.col -->
-        </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
+            </div>
+        </div>
+    </div>
 </div>
 
 <section class="content">
@@ -108,7 +106,6 @@
             </button>
         </div>
     </div>
-
     @endif
     <div class="container-fluid" style="width:70%;">
         <div class="row">
@@ -118,30 +115,25 @@
                     <div class="add_button">
                         <p class="card-title" style="font-size: 20px; color:white; padding:7px;">Raw Meterial</p>
                     </div>
-
-                    <!-- Normal HTML Form -->
                     <form action="{{ route('add_edit_raw_meterial') }}" method="POST" id="add_unit_form">
                         @csrf
-
                         <div class="card-body">
                             <input type="hidden" name="raw_meterial_code" id="raw_meterial_code" value="{{$data ? $data->code : 0}}">
-
                             <div class="form-group row">
                                 <div class="col-md-5">
-                                    <label for="category" class="form-label required">Category:</label>
+                                    <label for="category" class="form-label required">Material Name:</label>
                                 </div>
                                 <div class="col-md-7">
-									<select name="category_id" id="category_id" data-control="select2"
-											data-placeholder="Select Category..." class="form-control form-select-solid">
-										<option value="" disabled selected>---Select---</option>
-										@foreach ($category as $cat)
-										<option value="{{ $cat->code }}"
-												{{ old('category_id', isset($data) ? $data->category_id : '') == $cat->code ? 'selected' : '' }}>
-											{{ $cat->category }}
-										</option>
-										@endforeach
-									</select>
-
+                                    <select name="category_id" id="category_id" data-control="select2"
+                                        data-placeholder="Select Category..." class="form-control form-select-solid">
+                                        <option value="" disabled selected>---Select---</option>
+                                        @foreach ($category as $cat)
+                                        <option value="{{ $cat->code }}"
+                                            {{ old('category_id', isset($data) ? $data->category_id : '') == $cat->code ? 'selected' : '' }}>
+                                            {{ $cat->category }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                     @error('category_id')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -149,25 +141,22 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-5">
-                                    <label for="category" class="form-label required">Sub Category:</label>
+                                    <label for="category" class="form-label required">Specification:</label>
                                 </div>
                                 <div class="col-md-7">
-                                    <select name="sub_category_id" id="sub_category_id"  data-control="select2"
+                                    <select name="sub_category_id" id="sub_category_id" data-control="select2"
                                         data-placeholder="Select Category..."
                                         class="form-control form-select-solid">
                                         <option value="" disabled>---Select---</option>
-                                        
-
                                     </select>
                                     @error('sub_category_id')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-
                             <div class="form-group row">
                                 <div class="col-md-5">
-                                    <label for="name" class="form-label required">Raw Meterial:</label>
+                                    <label for="name" class="form-label required">Description:</label>
                                 </div>
                                 <div class="col-md-7">
                                     <input type="text" id="name" name="name" value="{{ old('name', isset($data) ? $data->name : '') }}" class="form-control" autocomplete="off" style="border-radius: 0.65rem; margin:6px;">
@@ -176,22 +165,21 @@
                                     @enderror
                                 </div>
                             </div>
-							<div class="form-group row">
+                            <div class="form-group row">
                                 <div class="col-md-5">
                                     <label for="category" class="form-label required">Unit:</label>
                                 </div>
                                 <div class="col-md-7">
-									<select name="unit" id="unit" data-control="select2"
-											data-placeholder="Select Unit..." class="form-control form-select-solid">
-										<option value="" disabled selected>---Select---</option>
-										@foreach ($units as $unit)
-										<option value="{{ $unit->code }}"
-												{{ old('unit', isset($data) ? $data->unit_id : '') == $unit->code ? 'selected' : '' }}>
-											{{ $unit->unit }}
-										</option>
-										@endforeach
-									</select>
-
+                                    <select name="unit" id="unit" data-control="select2"
+                                        data-placeholder="Select Unit..." class="form-control form-select-solid">
+                                        <option value="" disabled selected>---Select---</option>
+                                        @foreach ($units as $unit)
+                                        <option value="{{ $unit->code }}"
+                                            {{ old('unit', isset($data) ? $data->unit_id : '') == $unit->code ? 'selected' : '' }}>
+                                            {{ $unit->unit }}
+                                        </option>
+                                        @endforeach
+                                    </select>
                                     @error('unit')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -202,7 +190,7 @@
                                     <label for="rate" class="form-label required">Rate per unit(Rs.):</label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" id="rate"  name="rate" value="{{ old('rate', isset($data) ? $data->rate : '') }}" class="form-control" autocomplete="off" onkeypress="return isNumberKey(event)" style="border-radius: 0.65rem; margin:6px;">
+                                    <input type="text" id="rate" name="rate" value="{{ old('rate', isset($data) ? $data->rate : '') }}" class="form-control" autocomplete="off" onkeypress="return isNumberKey(event)" style="border-radius: 0.65rem; margin:6px;">
                                     @error('rate')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -213,13 +201,13 @@
                                     <label for="details" class="form-label ">Details:</label>
                                 </div>
                                 <div class="col-md-7">
-                                    <textarea type="text" rows="5" id="details" name="details" value="{{ old('details', isset($data) ? $data->details : '') }}" class="form-control"  autocomplete="off" style="border-radius: 0.65rem; margin:6px;"></textarea>
+                                    <textarea type="text" rows="5" id="details" name="details" value="{{ old('details', isset($data) ? $data->details : '') }}" class="form-control" autocomplete="off" style="border-radius: 0.65rem; margin:6px;"></textarea>
                                     @error('details')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-							<!-- <div class="form-group row">
+                            <!-- <div class="form-group row">
 								<div class="col-md-5">
 									<label for="total_stock" class="form-label required">Total Stock:</label>
 								</div>
@@ -230,62 +218,49 @@
 									@enderror
 								</div>
 							</div> -->
-
                             <div class="card-footer mt-5 text-center">
                                 <button type="submit" class="btn btn-primary" style="color: white;">Submit</button>
                             </div>
                         </div>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-
 @endsection
 
 @section('script')
 <script>
-
-$(document).ready(function () {
-	 let categoryId = "{{ old('category_id', $data ? $data->category_id : 0) }}";
+    $(document).ready(function() {
+        let categoryId = "{{ old('category_id', $data ? $data->category_id : 0) }}";
         let subCategoryId = "{{ old('sub_category_id', $data ? $data->sub_category_id : 0) }}";
-
-        // Call function if category is set
         if (categoryId != 0) {
             get_subcategory(categoryId, subCategoryId);
         }
-	
-    $("#category_id").change(function () {
-        let categoryId = $("#category_id").val();
-		get_subcategory(categoryId);
-
-           
-       
+        $("#category_id").change(function() {
+            let categoryId = $("#category_id").val();
+            get_subcategory(categoryId);
+        });
     });
-});
-	
-	function get_subcategory(category_id,sub_category_id=""){
-	 $.ajax({
-                url: "{{ route('get_subcategory') }}", // Define this route
-                type: "POST",
-                data: { 
-						category_id: category_id,
-					   sub_category_id: sub_category_id,
-					    '_token': "{{ csrf_token() }}",
-				},
-                success: function (response) {
-                  $("#sub_category_id").html("");
-                  $("#sub_category_id").html(response);
 
-                },
-                error: function () {
-                    alert("Something went wrong! Please try again.");
-                }
-            });
-	}
-
+    function get_subcategory(category_id, sub_category_id = "") {
+        $.ajax({
+            url: "{{ route('get_subcategory') }}",
+            type: "POST",
+            data: {
+                category_id: category_id,
+                sub_category_id: sub_category_id,
+                '_token': "{{ csrf_token() }}",
+            },
+            success: function(response) {
+                $("#sub_category_id").html("");
+                $("#sub_category_id").html(response);
+            },
+            error: function() {
+                alert("Something went wrong! Please try again.");
+            }
+        });
+    }
 </script>
 @endsection

@@ -85,14 +85,14 @@
         <div class="row mb-4">
             <div class="col-sm-6">
                 <button class="btn btn-primary" style="color:white;">
-                    <i class="fa fa-desktop"></i>&nbsp; <b>DRDC</b>
+                    <i class="fa fa-desktop"></i>&nbsp; <b>Material Name</b>
                 </button>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <div class="float-right">
                     <a href="{{ route('categoryList') }}">
                         <button type="button" class="btn btn-primary" id="add_btn" style="float:right;">
-                            <i class="fa fa-plus-circle"></i> &nbsp; Category List &nbsp;
+                            <i class="fa fa-plus-circle"></i> &nbsp; Material Name List &nbsp;
                         </button>
                     </a>
                 </div>
@@ -102,16 +102,16 @@
 </div>
 
 <section class="content">
-	 @if(session('success'))
-	<div class="row">
-		<div class="col-sm-12 alert alert-success alert-dismissible fade show" role="alert">
+    @if(session('success'))
+    <div class="row">
+        <div class="col-sm-12 alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-	</div>
-        
+    </div>
+
     @endif
     <div class="container-fluid" style="width:70%;">
         <div class="row">
@@ -119,24 +119,24 @@
             <div class="col-md-10" style="padding:0;">
                 <div class="card card-primary shadow rounded-3" style="padding:0;">
                     <div class="add_button">
-                        <p class="card-title" style="font-size: 20px; color:white; padding:7px;">Category</p>
+                        <p class="card-title" style="font-size: 20px; color:white; padding:7px;">Material Name Entry</p>
                     </div>
 
                     <!-- Normal HTML Form -->
                     <form action="{{ route('addcategory') }}" method="POST" id="add_category_form">
                         @csrf
-                        
+
                         <div class="card-body">
                             <input type="hidden" name="category_code" id="category_code" value="{{$data ? $data->code : 0}}">
 
                             <div class="form-group row">
                                 <div class="col-md-5">
-                                    <label for="category" class="form-label required">Category:</label>
+                                    <label for="category" class="form-label required">Material Name:</label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" id="category" name="category"  value="{{ old('category', isset($data) ? $data->category : '') }}"  class="form-control" autocomplete="off" style="border-radius: 0.65rem; margin:6px;">
+                                    <input type="text" id="category" name="category" value="{{ old('category', isset($data) ? $data->category : '') }}" class="form-control" autocomplete="off" style="border-radius: 0.65rem; margin:6px;">
                                     @error('category')
-                                        <div class="text-danger">{{ $message }}</div>
+                                    <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -155,5 +155,3 @@
 
 
 @endsection
-
-

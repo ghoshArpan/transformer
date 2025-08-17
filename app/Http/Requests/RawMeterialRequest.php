@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+
 class RawMeterialRequest extends FormRequest
 {
     /**
@@ -28,13 +29,13 @@ class RawMeterialRequest extends FormRequest
                 'max:255',
                 Rule::unique('raw_meterial')->where(function ($query) {
                     return $query->where('category_id', request('category_id'))
-                                 ->where('sub_category_id', request('sub_category_id'));
+                        ->where('sub_category_id', request('sub_category_id'));
                 }),
             ],
             'rate' => 'required|numeric',
             'unit' => 'required',
         ];
-        
+
         // use Illuminate\Validation\Rule;
     }
 
@@ -44,11 +45,11 @@ class RawMeterialRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'category_id.required' => 'Please select a category.',
-            'sub_category_id.required' => 'Please select a sub-category.',
-            'name.required' => 'The name field is required.',
-            'name.string' => 'The name must be a valid text.',
-            'name.max' => 'The name cannot exceed 255 characters.',
+            'category_id.required' => 'Please select a Material Name.',
+            'sub_category_id.required' => 'Please select a Specification.',
+            'name.required' => 'The Description field is required.',
+            'name.string' => 'The Description must be a valid text.',
+            'name.max' => 'The Description cannot exceed 255 characters.',
             'rate.required' => 'The rate field is required.',
             'unit.required' => 'The unit field is required.',
             'rate.numeric' => 'The rate must be a valid number.',

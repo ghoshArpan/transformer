@@ -84,12 +84,12 @@
 	<div class="container-fluid">
 		<div class="row mb-4">
 			<div class="col-sm-6">
-				
+
 			</div><!-- /.col -->
 			<div class="col-sm-6">
 				<div class="float-right">
 					<a href="{{ route('subcategoryList') }}">
-						<button type="button" class="btn btn-primary" id="add_btn" style="float:right;">&nbsp; Sub CategoryList &nbsp;
+						<button type="button" class="btn btn-primary" id="add_btn" style="float:right;">&nbsp; Specification List &nbsp;
 						</button>
 					</a>
 				</div>
@@ -128,19 +128,19 @@
 
 							<div class="form-group row">
 								<div class="col-md-5">
-									<label for="category" class="form-label required">Category:</label>
+									<label for="category" class="form-label required">Material Name:</label>
 								</div>
 								<div class="col-md-7">
 									<select name="category_id" id="category_id" required data-control="select2"
 										data-placeholder="Select Category..."
 										class="form-control form-select-solid">
 										<option value="">---Select---</option>
-@foreach ($category as $cat)
-    <option value="{{ $cat->code }}" 
-        {{ isset($data) && $data->category_id == $cat->code ? 'selected' : '' }}>
-        {{ $cat->category }}
-    </option>
-@endforeach
+										@foreach ($category as $cat)
+										<option value="{{ $cat->code }}"
+											{{ isset($data) && $data->category_id == $cat->code ? 'selected' : '' }}>
+											{{ $cat->category }}
+										</option>
+										@endforeach
 
 									</select>
 									@error('category')
@@ -150,11 +150,11 @@
 							</div>
 							<div class="form-group row">
 								<div class="col-md-5">
-									<label for="category" class="form-label required">Sub Category:</label>
+									<label for="category" class="form-label required">Specification:</label>
 								</div>
 								<div class="col-md-7">
-									 <input type="text" id="sub_category" name="sub_category"  value="{{ old('sub_category', isset($data) ? $data->sub_category : '') }}"  class="form-control" autocomplete="off" style="border-radius: 0.65rem; margin:6px;">
-                                  
+									<input type="text" id="sub_category" name="sub_category" value="{{ old('sub_category', isset($data) ? $data->sub_category : '') }}" class="form-control" autocomplete="off" style="border-radius: 0.65rem; margin:6px;">
+
 									@error('sub_category')
 									<div class="text-danger">{{ $message }}</div>
 									@enderror

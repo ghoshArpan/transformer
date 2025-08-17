@@ -2,8 +2,8 @@
 
 <style>
     .active:after {
-    content: "" !important;
-}
+        content: "" !important;
+    }
 </style>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -40,7 +40,7 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('LabourList') }}" class="nav-link {{ Route::is('LabourList') ? 'active' : '' }}">
-                            <i class="fa fa-circle nav-icon"></i>
+                                <i class="fa fa-circle nav-icon"></i>
                                 <p>Labour</p>
                             </a>
                         </li>
@@ -65,17 +65,17 @@
                         <li class="nav-item">
                             <a href="{{ route('transformer_cost_List') }}" class="nav-link {{ Route::is('transformer_cost_List') ? 'active' : '' }}">
                                 <i class="fa fa-circle nav-icon"></i>
-                                <p>Labour  Cost</p>
+                                <p>Labour Cost</p>
                             </a>
                         </li>
-                        
+
                     </ul>
                 </li>
                 <li class="nav-item has-treeview {{ Route::is('unitList', 'categoryList', 'subcategoryList', 'rawMeterial_List', 'stockList') ? 'menu-open' : '' }}">
                     <a href="#" class="nav-link {{ Route::is('unitList', 'categoryList', 'subcategoryList', 'rawMeterial_List', 'stockList') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-industry"></i>
                         <p>
-                             Material
+                            Material
                             <i class="right fa fa-angle-left"></i>
                         </p>
                     </a>
@@ -89,19 +89,19 @@
                         <li class="nav-item">
                             <a href="{{ route('categoryList') }}" class="nav-link {{ Route::is('categoryList') ? 'active' : '' }}">
                                 <i class="fa fa-circle nav-icon"></i>
-                                <p>Category</p>
+                                <p>Material Name</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('subcategoryList') }}" class="nav-link {{ Route::is('subcategoryList') ? 'active' : '' }}">
                                 <i class="fa fa-circle nav-icon"></i>
-                                <p>Sub Category</p>
+                                <p>Specification</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('rawMeterial_List') }}" class="nav-link {{ Route::is('rawMeterial_List') ? 'active' : '' }}">
                                 <i class="fa fa-circle nav-icon"></i>
-                                <p>Raw Material</p>
+                                <p>Raw Material List</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -112,8 +112,8 @@
                         </li>
                     </ul>
                 </li>
-                
-             
+
+
                 <li class="nav-item">
                     <a href="{{ route('logistic_cost_List') }}" class="nav-link {{ Route::is('logistic_cost_List') ? 'active' : '' }}">
                         <i class="fa fa-home" aria-hidden="true"></i>
@@ -126,10 +126,10 @@
                         <p>Misclenious</p>
                     </a>
                 </li>
-               
-                
-                
-                
+
+
+
+
                 <li class="nav-item">
                     <a href="{{ route('user') }}" class="nav-link {{ Route::is('user') ? 'active' : '' }}">
                         <i class="fa fa-home" aria-hidden="true"></i>

@@ -84,13 +84,13 @@
     <div class="container-fluid">
         <div class="row mb-4">
             <div class="col-sm-6">
-            
+
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <div class="float-right">
                     <a href="{{ route('stockList') }}">
                         <button type="button" class="btn btn-primary" id="add_btn" style="float:right;">
-                            &nbsp; Stock List &nbsp;
+                            &nbsp; Raw Material List &nbsp;
                         </button>
                     </a>
                 </div>
@@ -129,7 +129,7 @@
 
                             <div class="form-group row">
                                 <div class="col-md-5">
-                                    <label for="category" class="form-label required">Category:</label>
+                                    <label for="category" class="form-label required">Material Name:</label>
                                 </div>
                                 <div class="col-md-7">
                                     <select name="category_id" id="category_id" data-control="select2"
@@ -150,7 +150,7 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-md-5">
-                                    <label for="category" class="form-label required">Sub Category:</label>
+                                    <label for="category" class="form-label required">Specification:</label>
                                 </div>
                                 <div class="col-md-7">
                                     <select name="sub_category_id" id="sub_category_id" data-control="select2"
@@ -181,7 +181,7 @@
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
-                               
+
                             </div>
 
                             <div class="form-group row">
@@ -190,26 +190,26 @@
                                     <label for="quantity" class="form-label required">Quantity:</label>
                                 </div>
                                 <div class="col-md-5">
-                                    <input type="text" id="quantity"  name="quantity" value="{{ old('quantity', isset($data) ? $data->quantity : '') }}" class="form-control" autocomplete="off"  style="border-radius: 0.65rem; margin:6px;" onkeypress="return isNumberKey(event)">
+                                    <input type="text" id="quantity" name="quantity" value="{{ old('quantity', isset($data) ? $data->quantity : '') }}" class="form-control" autocomplete="off" style="border-radius: 0.65rem; margin:6px;" onkeypress="return isNumberKey(event)">
                                     @error('quantity')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
 
                                 <div class="col-md-2">
-                                    <input type="text" id="raw_meterial_unit" readonly name="raw_meterial_unit" value="{{ old('raw_meterial_unit', isset($data) ? $data->raw_meterial_unit : '') }}" class="form-control" autocomplete="off"  style="border-radius: 0.65rem; margin:6px;" >
-                                    
+                                    <input type="text" id="raw_meterial_unit" readonly name="raw_meterial_unit" value="{{ old('raw_meterial_unit', isset($data) ? $data->raw_meterial_unit : '') }}" class="form-control" autocomplete="off" style="border-radius: 0.65rem; margin:6px;">
+
                                     @error('raw_meterial')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
- <div class="form-group row">
+                            <div class="form-group row">
                                 <div class="col-md-5">
                                     <label for="amount" class="form-label required"> Amount(Rs.):</label>
                                 </div>
                                 <div class="col-md-7">
-                                    <input type="text" id="amount" readonly minlength="10" maxlength="10" name="amount" value="{{ old('quantity', isset($data) ? $data->amount_per_unit : '') }}"class="form-control" autocomplete="off" onkeypress="return isNumberKey(event)" style="border-radius: 0.65rem; margin:6px;" >
+                                    <input type="text" id="amount" readonly minlength="10" maxlength="10" name="amount" value="{{ old('quantity', isset($data) ? $data->amount_per_unit : '') }}" class="form-control" autocomplete="off" onkeypress="return isNumberKey(event)" style="border-radius: 0.65rem; margin:6px;">
                                     @error('amount')
                                     <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -245,10 +245,10 @@
 @section('script')
 <script>
     $(document).ready(function() {
-		 $('#quantity').on('input', function () {
+        $('#quantity').on('input', function() {
             calculateTotal();
         });
-		
+
         let categoryId = "{{ old('category_id', $data ? $data->category_id : 0) }}";
         let subCategoryId = "{{ old('sub_category_id', $data ? $data->sub_category_id : 0) }}";
         let raw_meterial = "{{ old('raw_meterial', $data ? $data->raw_meterial_id : 0) }}";
@@ -256,7 +256,7 @@
         // Call function if category is set
         if (categoryId != 0) {
             get_subcategory(categoryId, subCategoryId);
-			sub_category_wise_raw_meterial(categoryId, subCategoryId,raw_meterial);
+            sub_category_wise_raw_meterial(categoryId, subCategoryId, raw_meterial);
         }
 
         $("#category_id").change(function() {
@@ -266,25 +266,25 @@
 
 
         });
-		fetch_raw_meterial_wise_amt(raw_meterial);
-		
+        fetch_raw_meterial_wise_amt(raw_meterial);
+
         $("#sub_category_id").change(function() {
             let sub_category_id = $("#sub_category_id").val();
             let categoryId = $("#category_id").val();
-            sub_category_wise_raw_meterial(categoryId,sub_category_id);
+            sub_category_wise_raw_meterial(categoryId, sub_category_id);
 
 
 
         });
-		 $("#raw_meterial").change(function() {
+        $("#raw_meterial").change(function() {
             let raw_meterial = $("#raw_meterial").val();
             fetch_raw_meterial_wise_amt(raw_meterial);
 
 
 
         });
-		
-		
+
+
 
     });
 
@@ -308,7 +308,7 @@
         });
     }
 
-     function sub_category_wise_raw_meterial(category_id, sub_category_id , raw_meterial="") {
+    function sub_category_wise_raw_meterial(category_id, sub_category_id, raw_meterial = "") {
         $.ajax({
             url: "{{ route('get_raw_meterial') }}", // Define this route
             type: "POST",
@@ -328,9 +328,9 @@
             }
         });
     }
-	
-	function fetch_raw_meterial_wise_amt(raw_meterial=""){
-		  $.ajax({
+
+    function fetch_raw_meterial_wise_amt(raw_meterial = "") {
+        $.ajax({
             url: "{{ route('fetch_raw_meterial_wise_amt') }}", // Define this route
             type: "POST",
             data: {
@@ -338,16 +338,17 @@
                 '_token': "{{ csrf_token() }}",
             },
             success: function(response) {
-				$("#amount").val(response.amount);
-				$("#raw_meterial_unit").val(response.unit);
-                
+                $("#amount").val(response.amount);
+                $("#raw_meterial_unit").val(response.unit);
+
             },
             error: function() {
-              
+
             }
         });
-	}
-	function calculateTotal() {
+    }
+
+    function calculateTotal() {
         let quantity = parseFloat(document.getElementById('quantity').value) || 0;
         let amount = parseFloat(document.getElementById('amount').value) || 0;
         let total = quantity * amount;

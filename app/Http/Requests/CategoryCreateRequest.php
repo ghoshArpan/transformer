@@ -19,11 +19,19 @@ class CategoryCreateRequest extends FormRequest
      */
     public function rules(): array
     {
-		//dd(request()->all());
+        //dd(request()->all());
         return [
             'category' => 'required|string|max:255',
-            
+
         ];
-		
+    }
+
+    public function messages(): array
+    {
+        return [
+            'category.required' => 'Material Name is Required',
+            'category.string' => 'Material Name should be string',
+            'category.max' => 'Material Name`s maximum length is 255',
+        ];
     }
 }

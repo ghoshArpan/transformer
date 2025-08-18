@@ -16,69 +16,94 @@ class LabourController extends Controller
 	public function attendance_page()
 	{
 		$daysInMonth = date('t');
-		$currentYearMonth = date('Y-m');
-		$currentMonth = Carbon::now();
-		$monthName = $currentMonth->format('F Y');
-		
-		$employees = Labours::all()->map(function($employee) use ($currentYearMonth, $daysInMonth) {
-			
-			$attendanceData = array_fill(1, $daysInMonth, 0);
-			$totalDays = 0;
-			$totalPayable = 0;
-			
-			$attendanceRecords = LabourSubAttendance::where('labour_code', $employee->code)
-				->where('date', 'like', $currentYearMonth . '%')
-				->get();
-				
-			foreach ($attendanceRecords as $record) {
-				$day = (int) date('d', strtotime($record->date));
-				if ($day >= 1 && $day <= $daysInMonth) {
-					$attendanceData[$day] = $record->present_absent;
-					$totalDays += $record->present_field;
-					$totalPayable += $record->total_amount;
-				}
+		$currentYear = date('Y');
+		$currentMonth = date('m');
+		$monthName = date('F Y');
+
+		$employeeData = Labours::all()->map(function ($employee) use ($daysInMonth) {
+
+		// Default fill
+		$attendanceData = array_fill(1, $daysInMonth, 0);
+		$totalDays = 0;
+		$totalPayable = 0;
+
+		// fetch one row of attendance for this employee & month
+		$attendanceRecord = LabourSubAttendance::where('labour_code', $employee->code)->first();
+
+		if ($attendanceRecord) {
+			for ($day = 1; $day <= $daysInMonth; $day++) {
+				$col = 'date' . str_pad($day, 2, '0', STR_PAD_LEFT);
+
+				$attendanceData[$day] = $attendanceRecord->$col ?? 0;
+				$totalDays += $attendanceData[$day];
 			}
-			
-			return [
-				'employee' => $employee,
-				'attendance_data' => $attendanceData,
-				'total_days' => $totalDays,
-				'total_payable' => $totalPayable
-			];
+
+			// payable = days × wage
+			$totalPayable = $totalDays * $employee->per_day_wages;
+		}
+
+		return [
+		'employee'       => $employee,
+		'attendance_data'=> $attendanceData,
+		'total_days'     => $totalDays,
+		'total_payable'  => $totalPayable
+		];
 		});
-		
-		return view('attendance_page', compact('employees', 'daysInMonth', 'monthName'));
+
+		return view('attendance_page', compact('employeeData', 'daysInMonth', 'monthName', 'currentMonth', 'currentYear'));
 	}
+
+
 	public function attendance_page_save(Request $request)
 	{
 		$data = $request->all();
-		$currentYearMonth = date('Y-m'); 
+		$currentYear = date('Y'); 
+		$currentMonth = date('m'); 
 
 		foreach ($data['employee_id'] as $key => $employeeId) {
-
 			$employee = Labours::find($employeeId);
 			$dailyWage = $employee->per_day_wages;
+
+			$updateData = [];
+			$totalDays = 0;
+			$totalPayable = 0;
 
 			for ($day = 1; $day <= $data['days_in_month']; $day++) {
 				$fieldName = "attendance_{$employeeId}_{$day}";
 				$dayValue = $data[$fieldName] ?? 0;
 
-				if ($dayValue > 0) {
-					$date = $currentYearMonth . '-' . str_pad($day, 2, '0', STR_PAD_LEFT);
-					$totalAmount = $dayValue * $dailyWage;
-					LabourSubAttendance::insert([
-					'date' => $date,            
-					'labour_code' => $employeeId,
-					'wages' => $dailyWage,
-					'present_absent' => $dayValue 
-					]);
-				}
+				$col = 'date' . str_pad($day, 2, '0', STR_PAD_LEFT);
+				$updateData[$col] = $dayValue;
+
+				$totalDays += $dayValue;
 			}
+
+			// calculate payable
+			$totalPayable = $totalDays * $dailyWage;
+			$updateData['total_payable_amt'] = $totalPayable;
+			$updateData['labour_code'] = (int)$employeeId;
+			$updateData['year'] = $currentYear;
+			$updateData['month'] = $currentMonth;
+
+			$attendance = LabourSubAttendance::where('labour_code', $employeeId)
+			->where('year', $currentYear)
+			->where('month', $currentMonth)
+			->first();
+
+
+
+			if ($attendance) {
+
+				$attendance->update($updateData);
+			} else {
+				LabourSubAttendance::create($updateData);
+			}
+
 		}
 
-
-	return redirect()->back()->with('success', 'Attendance saved successfully!');
+		return redirect()->back()->with('success', 'Attendance saved successfully!');
 	}
+
 	public function addLabour(LabourCreateRequest $request){
 	
 		return Labours::create_update_labour();

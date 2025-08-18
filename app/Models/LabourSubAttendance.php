@@ -9,6 +9,7 @@ class LabourSubAttendance extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
     ////////////new////////
     protected $table = "labour_sub_attendance";
     protected $primaryKey = "code";

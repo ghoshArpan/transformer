@@ -2,29 +2,29 @@
 @section('title', 'Attendance Sheet')
 @section('content')
 <style>
-    .dataTables_info,
-    .dataTables_length,
-    .dataTables_filter,
-    .dataTables_paginate {
-        display: none
-    }
+.dataTables_info,
+.dataTables_length,
+.dataTables_filter,
+.dataTables_paginate {
+    display: none
+}
 
-    .extra-input {
-        pointer-events: auto;
-        z-index: 1;
-    }
+.extra-input {
+    pointer-events: auto;
+    z-index: 1;
+}
 
-    .attendance-input {
-        width: 50px !important;
-        /* Adjust this value as needed */
-        max-width: 100%;
-        padding: 0 5px;
-        text-align: center;
-    }
+.attendance-input {
+    width: 50px !important;
+    /* Adjust this value as needed */
+    max-width: 100%;
+    padding: 0 5px;
+    text-align: center;
+}
 
-    th {
-        font-size: 10px
-    }
+th {
+    font-size: 10px
+}
 </style>
 
 <div class="content-header">
@@ -79,16 +79,18 @@
             <div class="container-fluid bg-light">
                 <div class="table-responsive">
                     <h2>Employee Wages</h2>
-                    <form method="POST" action="{{route('attendance_page_save')}}" id="attendanceForm">
+                    <form method="POST" action="{{ route('attendance_page_save') }}" id="attendanceForm">
                         @csrf
                         <input type="hidden" name="days_in_month" value="{{ $daysInMonth }}">
+                        <input type="hidden" name="month" value="{{ $currentMonth }}">
+                        <input type="hidden" name="year" value="{{ $currentYear }}">
 
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="attendanceTable">
-                                <thead>
+                            <table class="table table-bordered table-striped" id="attendanceTable">
+                                <thead class="sticky-header">
                                     <tr>
-                                        <th>Employee Name</th>
-                                        <th>Daily Wage(Rs.)</th>
+                                        <th class="employee-name">Employee Name</th>
+                                        <th class="daily-wage">Daily Wage(Rs.)</th>
                                         @for($day = 1; $day <= $daysInMonth; $day++) <th>{{ $day }}</th>
                                             @endfor
                                             <th>Total Days</th>
@@ -96,36 +98,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($employees as $employeeData)
-                                    @php $employee = $employeeData['employee']; @endphp
+                                    @foreach($employeeData as $empData)
+                                    @php $employee = $empData['employee']; @endphp
                                     <tr data-employee-id="{{ $employee->code }}"
                                         data-daily-wage="{{ $employee->per_day_wages }}">
-                                        <td>{{ $employee->name }}</td>
+                                        <td class="employee-name">{{ $employee->name }}</td>
                                         <td class="daily-wage">{{ number_format($employee->per_day_wages, 2) }}</td>
 
                                         <input type="hidden" name="employee_id[]" value="{{ $employee->code }}">
 
                                         @for($day = 1; $day <= $daysInMonth; $day++) <td>
                                             <input type="number" name="attendance_{{ $employee->code }}_{{ $day }}"
-                                                class="attendance-input form-control" min="0" step="0.01"
-                                                value="{{ $employeeData['attendance_data'][$day] ?? 0 }}"
+                                                class="attendance-input form-control" min="0" max="1" step="0.01"
+                                                value="{{ $empData['attendance_data'][$day] ?? 0 }}"
                                                 oninput="calculateTotals(this)">
                                             </td>
                                             @endfor
 
-                                            <td class="total-days">{{ number_format($employeeData['total_days'], 2) }}
-                                            </td>
-                                            <td class="total-payable">
-                                                {{ number_format($employeeData['total_payable'], 2) }}
-                                            </td>
+                                            <td class="total-days fw-bold">
+                                                {{ number_format($empData['total_days'], 2) }}</td>
+                                            <td class="total-payable fw-bold">
+                                                {{ number_format($empData['total_payable'], 2) }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
+
                             </table>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Save Attendance</button>
+                        <div class="row mt-3">
+
+                        </div>
                     </form>
+
                 </div>
             </div>
         </div>
@@ -135,29 +140,46 @@
 @endsection
 @section('script')
 <script>
-    function calculateTotals(input) {
-        const row = input.closest('tr');
-        const dailyWage = parseFloat(row.dataset.dailyWage);
-        const inputs = row.querySelectorAll('.attendance-input');
-        const totalDaysCell = row.querySelector('.total-days');
-        const totalPayableCell = row.querySelector('.total-payable');
+function calculateTotals(input) {
+    const row = input.closest('tr');
+    const dailyWage = parseFloat(row.dataset.dailyWage);
+    const inputs = row.querySelectorAll('.attendance-input');
+    const totalDaysCell = row.querySelector('.total-days');
+    const totalPayableCell = row.querySelector('.total-payable');
 
-        let totalDays = 0;
+    let totalDays = 0;
 
-        inputs.forEach(input => {
-            const days = parseFloat(input.value) || 0;
-            totalDays += days;
-        });
-
-        const totalPayable = totalDays * dailyWage;
-
-        totalDaysCell.textContent = totalDays.toFixed(2);
-        totalPayableCell.textContent = totalPayable.toFixed(2);
-    }
-    $(document).ready(function() {
-        $('.attendance-input').each(function() {
-            calculateTotals(this);
-        });
+    inputs.forEach(input => {
+        const days = parseFloat(input.value) || 0;
+        totalDays += days;
     });
+
+    const totalPayable = totalDays * dailyWage;
+
+    totalDaysCell.textContent = totalDays.toFixed(2);
+    totalPayableCell.textContent = totalPayable.toFixed(2);
+    saveAttendance();
+}
+
+function saveAttendance() {
+    let formData = $("#attendanceForm").serialize();
+
+    $.ajax({
+        url: $("#attendanceForm").attr("action"),
+        method: "POST",
+        data: formData,
+        success: function(response) {
+            console.log("Attendance saved successfully", response);
+        },
+        error: function(xhr) {
+            console.error("Error saving attendance:", xhr.responseText);
+        }
+    });
+}
+$(document).ready(function() {
+    // $('.attendance-input').each(function() {
+    //     calculateTotals(this);
+    // });
+});
 </script>
 @endsection

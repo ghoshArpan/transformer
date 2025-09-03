@@ -12,127 +12,162 @@ use App\Models\Stocks;
 use App\Models\Units;
 use App\Models\RawMeterials;
 use App\Models\RawMeterialSubCategory;
+use App\Models\RawMaterialBuy;
+use App\Models\Quotation;
+use App\Models\Dealer;
+
+
 use Illuminate\Support\Facades\DB;
 
 class RawMeterialController extends Controller
 {
 
 
-	public function view_stock(){
-		$datas=Stocks::view_stock_history();
-		return view('view_stock_history',compact('datas'));
+	public function view_stock()
+	{
+		$datas = Stocks::view_stock_history();
+		return view('view_stock_history', compact('datas'));
 	}
 
-	public function addcategory(CategoryCreateRequest $request){
-	
+	public function addcategory(CategoryCreateRequest $request)
+	{
+
 		return RawMeterialCategory::create_update_category();
-		
 	}
-	
-	public function category(){
-		
-		$data=RawMeterialCategory::fetch_data();
-		return view('add_edit_category',compact('data'));
-		
-		
+
+	public function category()
+	{
+
+		$data = RawMeterialCategory::fetch_data();
+		return view('add_edit_category', compact('data'));
 	}
-	
-	public function categoryList(){
-		$datas=RawMeterialCategory::category_List();
-		return view('category_list',compact('datas'));
+
+	public function categoryList()
+	{
+		$datas = RawMeterialCategory::category_List();
+		return view('category_list', compact('datas'));
 	}
-	
-	public function addsubcategory(SubCategoryCreateRequest $request){
-	
+
+	public function addsubcategory(SubCategoryCreateRequest $request)
+	{
+
 		return RawMeterialSubCategory::create_update_subcategory();
-		
 	}
-	
-	public function subcategory(){
-		
-		$data=RawMeterialSubCategory::fetch_data();
-		$category=RawMeterialCategory::fetch_category();
-		return view('add_edit_sub_category',compact('data','category'));
-		
-		
+
+	public function subcategory()
+	{
+
+		$data = RawMeterialSubCategory::fetch_data();
+		$category = RawMeterialCategory::fetch_category();
+		return view('add_edit_sub_category', compact('data', 'category'));
 	}
-	
-	public function subcategoryList(){
-		$datas=RawMeterialSubCategory::subcategory_List();
-		return view('sub_categoryList',compact('datas'));
+
+	public function subcategoryList()
+	{
+		$datas = RawMeterialSubCategory::subcategory_List();
+		return view('sub_categoryList', compact('datas'));
 	}
-	
-	
-	public static function raw_meterial(){
-		$category=RawMeterialCategory::fetch_category();
-		$units=Units::fetch_unit();
-		$data=RawMeterials::fetch_data();
-		return view('add_edit_raw_meterial',compact('data','category','units'));
-		
+
+
+	public static function raw_meterial()
+	{
+		$category = RawMeterialCategory::fetch_category();
+		$units = Units::fetch_unit();
+		$data = RawMeterials::fetch_data();
+		return view('add_edit_raw_meterial', compact('data', 'category', 'units'));
 	}
-	
-	public static function rawMeterial_List(){
-		$datas=RawMeterials::rawMeterial_List();
-		return view('raw_meterial_list',compact('datas'));
-		
+
+	public static function rawMeterial_List()
+	{
+		$datas = RawMeterials::rawMeterial_List();
+		return view('raw_meterial_list', compact('datas'));
 	}
-	
-	public function add_edit_raw_meterial(RawMeterialRequest $request){
-	
+
+	public function add_edit_raw_meterial(RawMeterialRequest $request)
+	{
+
 		return RawMeterials::create_update_RawMeterial();
-	}	
+	}
 
 	public function get_subcategory(Request $request)
 	{
-		$subId=request()->sub_category_id;
+		$subId = request()->sub_category_id;
 		$data = RawMeterialSubCategory::get_subcategory_data();
-		$html=view('sub_category_options',compact('data','subId'));
+		$html = view('sub_category_options', compact('data', 'subId'));
 		return $html;
 	}
-	
+
 	public function get_raw_meterial(Request $request)
 	{
-		$raw_id=request()->raw_meterial;
+		$raw_id = request()->raw_meterial;
 		$data = RawMeterials::get_raw_meterial();
-		$html=view('raw_meterial_options',compact('data','raw_id'));
+		$html = view('raw_meterial_options', compact('data', 'raw_id'));
 		return $html;
 	}
-		public function fetch_raw_meterial_wise_amt(Request $request)
+	public function fetch_raw_meterial_wise_amt(Request $request)
 	{
-		
+
 		$data = RawMeterials::fetch_raw_meterial_wise_amt();
-		
+
 		return $data;
 	}
 
 	public function fetch_raw_meterial_wise_amt_stock_wise(Request $request)
 	{
-		
+
 		$data = Stocks::fetch_raw_meterial_wise_amt_stock_wise_two();
-		
+
 		return $data;
 	}
-	
-	
-	public function stock(){
-		
-		$data=Stocks::fetch_data();
-		$category=RawMeterialCategory::fetch_category();
-		
-		return view('stock',compact('data','category'));
-	}
-	
-	public static function stockList(){
 
-		$datas=Stocks::stock_list();
-		return view('stock_list',compact('datas'));
+
+	public function stock()
+	{
+
+		$data = Stocks::fetch_data();
+		$category = RawMeterialCategory::fetch_category();
+
+		return view('stock', compact('data', 'category'));
 	}
-	
-	public function add_edit_stock(){
-		
+
+	public static function stockList()
+	{
+
+		$datas = Stocks::stock_list();
+		return view('stock_list', compact('datas'));
+	}
+
+	public function add_edit_stock()
+	{
+
 		return Stocks::create_update_stock();
-		
 	}
-	
-	
+
+	public function rawmaterialBuyList()
+	{
+
+		$datas = RawMaterialBuy::rawmaterial_buy_list();
+		return view('raw_material_buy_list', compact('datas'));
+	}
+
+	public function buy()
+	{
+		$data = RawMaterialBuy::fetch_data();
+		return view('add_edit_buy', compact('data'));
+	}
+
+	public function addBuy()
+	{
+
+		return RawMaterialBuy::create_update_buy();
+	}
+
+	public function quotation()
+	{
+
+		$datas = RawMaterialBuy::quotation_wise_rawmaterial_data();
+		$dealer_data = Dealer::fetch_data();
+		//dd($datas);
+		return view('quotation', compact('datas', 'dealer_data'));
+	}
 }

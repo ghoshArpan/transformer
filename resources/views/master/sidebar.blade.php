@@ -113,6 +113,24 @@
                     </ul>
                 </li>
 
+                <li class="nav-item has-treeview {{ Route::is('rawmaterialBuyList') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ Route::is('rawmaterialBuyList') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-industry"></i>
+                        <p>
+                            Quotation
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('rawmaterialBuyList') }}" class="nav-link {{ Route::is('rawmaterialBuyList') ? 'active' : '' }}">
+                                <i class="fa fa-circle nav-icon"></i>
+                                <p>Buy</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
 
                 <li class="nav-item">
                     <a href="{{ route('logistic_cost_List') }}" class="nav-link {{ Route::is('logistic_cost_List') ? 'active' : '' }}">
